@@ -10,11 +10,9 @@ namespace ScoringSystem_web_api.Models.ConditionModels
         public Dictionary<string, object> Properties { get; set; }
         public string? PropertiesJson { get; set; }
         public AgeCondition() { }
-        public AgeCondition(int minAge = 18)
+        public AgeCondition(Dictionary<string,object> properties)
         {
-            Properties = new Dictionary<string, object>();
-            Properties["MinimalAge"] = minAge;
-
+            Properties = properties;
             ConditionType = "AgeCondition";
         }
         public override bool EvaluateCustomer(Customer customer)

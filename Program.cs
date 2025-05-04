@@ -3,6 +3,7 @@ using ScoringSystem_web_api.Data;
 using ScoringSystem_web_api;
 using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Repository;
+using ScoringSystem_web_api.Models.ConditionModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +36,7 @@ var app = builder.Build();
 //    {
 //        var service = scope.ServiceProvider.GetService<Seed>();
 //        service.SeedDataContext();
-    //}
+//}
 //}
 
 // Configure the HTTP request pipeline.
