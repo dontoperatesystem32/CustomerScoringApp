@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ScoringSystem_web_api.Dto;
 using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Models.ConditionModels;
@@ -13,9 +14,11 @@ namespace ScoringSystem_web_api.Controllers
     {
         private readonly IConditionRepository _conditionRepository;
         private readonly IMapper _mapper;
-        public ConditionsController(IConditionRepository conditionrepository)
+        public ConditionsController(IConditionRepository conditionrepository, IMapper mapper)
         {
             _conditionRepository = conditionrepository;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
@@ -35,7 +38,7 @@ namespace ScoringSystem_web_api.Controllers
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
-        public IActionResult CreateCondition([FromQuery] int ownerId, [FromQuery] int catId, [FromBody] BaseConditionDto conditionCreate)
+        public IActionResult CreateCondition([FromBody] BaseConditionDto conditionCreate)
         {
             if (conditionCreate == null)
                 return BadRequest(ModelState);
@@ -43,10 +46,16 @@ namespace ScoringSystem_web_api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            if(conditionCreate.ConditionType == null)
+                return BadRequest(ModelState);
+
+
             var conditionMap = _mapper.Map<BaseCondition>(conditionCreate);
+            //Type targetType = Type.GetType(conditionCreate.ConditionType);
+            //var conditionMap = _mapper.Map(conditionCreate, conditionCreate.GetType(), targetType);
 
 
-            if (!_conditionRepository.CreateCondition(ownerId, catId, conditionMap))
+            if (!_conditionRepository.CreateCondition(conditionMap))
             {
                 ModelState.AddModelError("", "Something went wrong while savin");
                 return StatusCode(500, ModelState);

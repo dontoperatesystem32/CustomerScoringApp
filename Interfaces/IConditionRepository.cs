@@ -1,4 +1,5 @@
-﻿using ScoringSystem_web_api.Models;
+﻿using ScoringSystem_web_api.Dto;
+using ScoringSystem_web_api.Models;
 using ScoringSystem_web_api.Models.ConditionModels;
 namespace ScoringSystem_web_api.Interfaces
 {
@@ -7,6 +8,8 @@ namespace ScoringSystem_web_api.Interfaces
         ICollection<BaseCondition> GetConditions();
         //BaseCondition GetCondition(int id);
         bool ConditionExists(int conditionId);
+
+        bool CreateCondition(BaseCondition condition);
 
 
     }

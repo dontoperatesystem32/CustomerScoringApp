@@ -1,4 +1,6 @@
-﻿using ScoringSystem_web_api.Data;
+﻿using AutoMapper;
+using ScoringSystem_web_api.Data;
+using ScoringSystem_web_api.Dto;
 using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Models.ConditionModels;
 
@@ -7,6 +9,7 @@ namespace ScoringSystem_web_api.Repository
     public class ConditionRepository : IConditionRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
         public ConditionRepository(DataContext context)
         {
                _context = context;
@@ -22,28 +25,11 @@ namespace ScoringSystem_web_api.Repository
             return _context.ConditionStrategies.Any(с => с.Id == conditionId);
         }
 
-        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        public bool CreateCondition(BaseCondition condition)
         {
-            var pokemonOwnerEntity = _context.Owners.Where(a => a.Id == ownerId).FirstOrDefault();
-            var category = _context.Categories.Where(a => a.Id == categoryId).FirstOrDefault();
-
-            var pokemonOwner = new PokemonOwner()
-            {
-                Owner = pokemonOwnerEntity,
-                Pokemon = pokemon,
-            };
-
-            _context.Add(pokemonOwner);
-
-            var pokemonCategory = new PokemonCategory()
-            {
-                Category = category,
-                Pokemon = pokemon,
-            };
-
-            _context.Add(pokemonCategory);
-
-            _context.Add(pokemon);
+            Type targetType = Type.GetType(condition.ConditionType);
+            var conditionMap = _mapper.Map(condition, condition.GetType(), targetType);
+            _context.Add(condition);
 
             return Save();
         }
