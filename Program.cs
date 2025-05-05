@@ -24,6 +24,23 @@ builder.Services.AddDbContext<DataContext>(options =>
 var app = builder.Build();
 
 
+var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
+lifetime.ApplicationStarted.Register(() =>
+{
+    // Put your startup code here
+    Console.WriteLine("Application has started!");
+    using (var scope = app.Services.CreateScope())
+    {
+        var conditionRepository = scope.ServiceProvider.GetRequiredService<IConditionRepository>();
+        // Call the method on the instance
+        string conditionName = "AgeCondition";
+        conditionRepository.CreateCondition(conditionName);
+
+    }
+
+});
+
+
 //seed xuynalari
 
 //if (args.Length == 1 && args[0].ToLower() == "seeddata")

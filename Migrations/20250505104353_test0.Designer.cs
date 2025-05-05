@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScoringSystem_web_api.Data;
 
@@ -10,9 +11,11 @@ using ScoringSystem_web_api.Data;
 namespace ScoringSystem_web_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250505104353_test0")]
+    partial class test0
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,6 +114,10 @@ namespace ScoringSystem_web_api.Migrations
             modelBuilder.Entity("ScoringSystem_web_api.Models.ConditionModels.SalaryCondition", b =>
                 {
                     b.HasBaseType("ScoringSystem_web_api.Models.ConditionModels.BaseCondition");
+
+                    b.Property<string>("PropertiesJson")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("SalaryCondition");
                 });

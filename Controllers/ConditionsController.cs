@@ -35,33 +35,33 @@ namespace ScoringSystem_web_api.Controllers
         }
 
 
-        [HttpPost]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        public IActionResult CreateCondition([FromBody] BaseConditionDto conditionCreate)
-        {
-            if (conditionCreate == null)
-                return BadRequest(ModelState);
+        //[HttpPost]
+        //[ProducesResponseType(204)]
+        //[ProducesResponseType(400)]
+        //public IActionResult CreateCondition([FromBody] BaseConditionDto conditionCreate)
+        //{
+        //    if (conditionCreate == null)
+        //        return BadRequest(ModelState);
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
 
-            if(conditionCreate.ConditionType == null)
-                return BadRequest(ModelState);
-
-
-            var conditionMap = _mapper.Map<BaseCondition>(conditionCreate);
-            //Type targetType = Type.GetType(conditionCreate.ConditionType);
-            //var conditionMap = _mapper.Map(conditionCreate, conditionCreate.GetType(), targetType);
+        //    if (conditionCreate.ConditionType == null)
+        //        return BadRequest(ModelState);
 
 
-            if (!_conditionRepository.CreateCondition(conditionMap))
-            {
-                ModelState.AddModelError("", "Something went wrong while savin");
-                return StatusCode(500, ModelState);
-            }
+        //    var conditionMap = _mapper.Map<BaseCondition>(conditionCreate);
+        //    //Type targetType = Type.GetType(conditionCreate.ConditionType);
+        //    //var conditionMap = _mapper.Map(conditionCreate, conditionCreate.GetType(), targetType);
 
-            return Ok("Successfully created");
-        }
+
+        //    if (!_conditionRepository.CreateCondition(conditionMap))
+        //    {
+        //        ModelState.AddModelError("", "Something went wrong while savin");
+        //        return StatusCode(500, ModelState);
+        //    }
+
+        //    return Ok("Successfully created");
+        //}
     }
 }

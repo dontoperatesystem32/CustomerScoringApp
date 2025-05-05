@@ -25,10 +25,40 @@ namespace ScoringSystem_web_api.Repository
             return _context.ConditionStrategies.Any(с => с.Id == conditionId);
         }
 
-        public bool CreateCondition(BaseCondition condition)
+        public bool ConditionExists(string conditionType)
         {
-            Type targetType = Type.GetType(condition.ConditionType);
-            var conditionMap = _mapper.Map(condition, condition.GetType(), targetType);
+            return _context.ConditionStrategies.Any(с => с.ConditionType == conditionType);
+        }
+
+        //public bool CreateCondition(BaseCondition condition)
+        //{
+        //    Type targetType = Type.GetType(condition.ConditionType);
+        //    var conditionMap = _mapper.Map(condition, condition.GetType(), targetType);
+        //    _context.Add(condition);
+
+        //    return Save();
+        //}
+
+        public bool CreateCondition(string conditionType)
+        {
+            if (ConditionExists(conditionType))
+            {
+                return false;
+            }
+            Console.WriteLine("\n");
+            Console.WriteLine("conditionType before adding zirzibil: " + conditionType);
+
+            conditionType = "ScoringSystem_web_api.Models.ConditionModels." + conditionType;
+
+
+            Console.WriteLine("\n");
+            Console.WriteLine("debug: Type.GetType(conditionType) = " + Type.GetType(conditionType));
+            Console.WriteLine("debug: conditionType = " + conditionType);
+            Console.WriteLine("\n");
+
+
+            var condition = Activator.CreateInstance(Type.GetType(conditionType)) as BaseCondition;
+
             _context.Add(condition);
 
             return Save();
@@ -40,5 +70,6 @@ namespace ScoringSystem_web_api.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
     }
 }

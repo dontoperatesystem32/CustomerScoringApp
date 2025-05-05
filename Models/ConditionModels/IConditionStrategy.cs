@@ -4,7 +4,11 @@ namespace ScoringSystem_web_api.Models.ConditionModels
 {
     public interface IConditionStrategy
     {
+        public int Id { get; set; }
+        public string ConditionType { get; set; }
         public bool IsEnabled { get; set; }
-        public bool EvaluateCustomer(Customer customer);
+        public Dictionary<string, object> Properties { get; set; }
+        public abstract bool EvaluateCustomer(Customer customer);
+        public float OptionalAmount(Customer customer, bool salaryEligible);
     }
 }

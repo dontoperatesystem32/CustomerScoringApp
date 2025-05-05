@@ -8,8 +8,14 @@ namespace ScoringSystem_web_api.Interfaces
         ICollection<BaseCondition> GetConditions();
         //BaseCondition GetCondition(int id);
         bool ConditionExists(int conditionId);
+        bool ConditionExists(string conditionType);
 
-        bool CreateCondition(BaseCondition condition);
+
+        //bool CreateCondition(BaseCondition condition);
+        bool CreateCondition(string conditionType);
+
+        bool Save();
+
 
 
     }

@@ -4,13 +4,13 @@ namespace ScoringSystem_web_api.Models.ConditionModels
 {
     public class SalaryCondition : BaseCondition
     {
-        public int Id { get; set; }
-        public bool IsEnabled { get; set; }
-        public string ConditionType { get; set; }
-
-        public Dictionary<string, object> Properties { get; set; }
-        public string PropertiesJson { get; set; }
-        public SalaryCondition() { }
+        public SalaryCondition() 
+        {
+            Properties = new Dictionary<string, object>();
+            Properties["MinimalSalary"] = 1000;
+            ConditionType = "SalaryCondition";
+            IsEnabled = true;
+        }
         public SalaryCondition(float minSalary = 1000)
         {
             Properties = new Dictionary<string, object>();
