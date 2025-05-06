@@ -64,6 +64,11 @@ namespace ScoringSystem_web_api.Repository
             return Save();
         }
 
+        public bool UpdateCondition(BaseCondition condition)
+        {
+            _context.Update(condition);
+            return Save();
+        }
 
         public bool Save()
         {

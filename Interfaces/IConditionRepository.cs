@@ -13,8 +13,8 @@ namespace ScoringSystem_web_api.Interfaces
 
         //bool CreateCondition(BaseCondition condition);
         bool CreateCondition(string conditionType);
-
         bool Save();
+        bool UpdateCondition(BaseCondition condition);
 
 
 

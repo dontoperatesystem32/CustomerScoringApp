@@ -23,10 +23,10 @@ namespace ScoringSystem_web_api.Models.ConditionModels
             return true;
         }
 
-        public float OptionalAmount(Customer customer, bool salaryEligible)
-        {
-            if (!salaryEligible) return 0;
-            return 12 * (customer.Salary);
-        }
+        //public float OptionalAmount(Customer customer, bool salaryEligible)
+        //{
+        //    if (!salaryEligible) return 0;
+        //    return 12 * (customer.Salary);
+        //}
     }
 }

@@ -34,6 +34,29 @@ namespace ScoringSystem_web_api.Controllers
             return Ok(conditions);
         }
 
+        [HttpPut("{conditionId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult UpdateCondition([FromRoute] int conditionId, [FromBody] BaseConditionDto conditionUpdate)
+        {
+            if (conditionUpdate == null)
+                return BadRequest(ModelState);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            if (!_conditionRepository.ConditionExists(conditionId))
+                return NotFound();
+
+            var conditionMap = _mapper.Map<BaseCondition>(conditionUpdate);
+
+            if (!_conditionRepository.UpdateCondition(conditionMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while updating");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
+
 
         //[HttpPost]
         //[ProducesResponseType(204)]

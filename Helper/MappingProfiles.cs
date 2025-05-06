@@ -14,6 +14,11 @@ namespace PokemonReviewApp.Helper
             CreateMap<BaseCondition, BaseConditionDto>();
             CreateMap<BaseConditionDto, BaseCondition>();
 
+            CreateMap<Customer, CustomerDto>();
+            CreateMap<CustomerDto, Customer>();
+            CreateMap<Account, AccountDto>();
+            CreateMap<AccountDto, Account>();
+
 
             //CreateMap<Pokemon, PokemonDto>();
             //CreateMap<Category, CategoryDto>();
