@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ScoringSystem_web_api.Models.ConditionModels
 {
@@ -19,6 +20,7 @@ namespace ScoringSystem_web_api.Models.ConditionModels
         }
         public override bool EvaluateCustomer(Customer customer)
         {
+            DeserializeProperties();
             if (customer.Salary < (float)Properties["MinimalSalary"]) return false;
             return true;
         }
@@ -28,5 +30,18 @@ namespace ScoringSystem_web_api.Models.ConditionModels
         //    if (!salaryEligible) return 0;
         //    return 12 * (customer.Salary);
         //}
+
+        public float DeserializeFloat(JsonElement property)
+        {
+            return property.GetSingle();
+        }
+        public void DeserializeProperties()
+        {
+            var minSalary = Properties["MinimalSalary"];
+            minSalary = DeserializeFloat((JsonElement)minSalary);
+            Properties["MinimalSalary"] = minSalary;
+        }
+
+
     }
 }

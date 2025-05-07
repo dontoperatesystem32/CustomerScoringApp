@@ -33,8 +33,8 @@ lifetime.ApplicationStarted.Register(() =>
     {
         var conditionRepository = scope.ServiceProvider.GetRequiredService<IConditionRepository>();
         // Call the method on the instance
-        string conditionName = "AgeCondition";
-        conditionRepository.CreateCondition(conditionName);
+        conditionRepository.CreateCondition("AgeCondition");
+        conditionRepository.CreateCondition("SalaryCondition");
 
     }
 
