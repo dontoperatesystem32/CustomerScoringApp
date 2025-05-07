@@ -21,8 +21,8 @@ namespace ScoringSystem_web_api.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<BaseCondition> ConditionStrategies { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.LogTo(Console.WriteLine);
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //    => optionsBuilder.LogTo(Console.WriteLine);
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,7 +42,8 @@ namespace ScoringSystem_web_api.Data
             modelBuilder.Entity<BaseCondition>()
                 .HasDiscriminator<string>("ConditionType")
                 .HasValue<AgeCondition>("AgeCondition")
-                .HasValue<SalaryCondition>("SalaryCondition");
+                .HasValue<SalaryCondition>("SalaryCondition")
+                .HasValue<TotalLoansCondition>("TotalLoansCondition");
         }
 
 

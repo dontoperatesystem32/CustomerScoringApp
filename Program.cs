@@ -35,6 +35,7 @@ lifetime.ApplicationStarted.Register(() =>
         // Call the method on the instance
         conditionRepository.CreateCondition("AgeCondition");
         conditionRepository.CreateCondition("SalaryCondition");
+        conditionRepository.CreateCondition("TotalLoansCondition");
 
     }
 
