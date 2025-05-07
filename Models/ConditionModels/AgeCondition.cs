@@ -25,13 +25,28 @@ namespace ScoringSystem_web_api.Models.ConditionModels
         public override bool EvaluateCustomer(Customer customer)
         {
             // TODO: CALL THE METHOD HERE
-            if (!Properties.TryGetValue("MinimalAge", out object val))
-                throw new Exception();
-            if (customer.Age < (int)val) return false;
+            //int Age = DeserializeInt((JsonElement)Properties["MinimalAge"]);
+            DeserializeProperties();
+            if (customer.Age < (int)Properties["MinimalAge"]) return false;
             return true;
+            //if (!Properties.TryGetValue("MinimalAge", out object val))
+            //    throw new Exception();
+            //if (customer.Age < (int)val) return false;
+            //return true;
         }
 
         //TODO : CREATE METHOD TO DESERELIZE JSON FROM DB
+        public int DeserializeInt(JsonElement property)
+        {
+            return property.GetInt32();
+        }
+        public void DeserializeProperties()
+        {
+            var minAge = Properties["MinimalAge"];
+            minAge = DeserializeInt((JsonElement)minAge);
+            Properties["MinimalAge"] = minAge;
+        }
+
 
 
 
