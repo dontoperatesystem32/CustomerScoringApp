@@ -47,9 +47,18 @@ namespace ScoringSystem_web_api.Controllers
             if (!_conditionRepository.ConditionExists(conditionId))
                 return NotFound();
 
-            var conditionMap = _mapper.Map<BaseCondition>(conditionUpdate);
+            var existingCondition = _conditionRepository.GetConditions().Where(c => c.Id == conditionId).FirstOrDefault();
 
-            if (!_conditionRepository.UpdateCondition(conditionMap))
+            if (existingCondition == null)
+                return NotFound();
+
+            if (conditionUpdate.ConditionType != existingCondition.ConditionType)
+                return BadRequest(existingCondition.ConditionType + " is not the same as " + conditionUpdate.ConditionType + " in the database");
+
+            existingCondition = _mapper.Map(conditionUpdate, existingCondition);
+
+
+            if (!_conditionRepository.UpdateCondition(existingCondition))
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);

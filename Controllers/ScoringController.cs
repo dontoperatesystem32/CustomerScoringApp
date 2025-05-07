@@ -22,7 +22,6 @@ namespace ScoringSystem_web_api.Controllers
 
         }
 
-
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

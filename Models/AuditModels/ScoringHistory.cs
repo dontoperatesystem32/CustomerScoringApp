@@ -1,6 +1,6 @@
 ﻿namespace ScoringSystem_web_api.Models.AuditModels
 {
-    public class EvaluationRecord
+    public class ScoringHistory
     {
         public int Id { get; set; }
         public Customer Customer { get; set; }
