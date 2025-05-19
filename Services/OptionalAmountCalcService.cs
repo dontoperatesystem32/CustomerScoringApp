@@ -1,5 +1,6 @@
-﻿using ScoringSystem_web_api.Interfaces;
+﻿using ScoringSystem_web_api.Models.Abstraction;
 using ScoringSystem_web_api.Models.CustomerModels;
+using ScoringSystem_web_api.Services.Abstraction;
 
 namespace ScoringSystem_web_api.Services
 {

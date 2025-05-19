@@ -1,5 +1,5 @@
 ﻿using ScoringSystem_web_api.Data;
-using ScoringSystem_web_api.Interfaces;
+using ScoringSystem_web_api.Models.Abstraction;
 using ScoringSystem_web_api.Models.AuditModels;
 
 namespace ScoringSystem_web_api.Repository

@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using ScoringSystem_web_api.Data;
 using ScoringSystem_web_api;
-using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Repository;
 using ScoringSystem_web_api.Models.ConditionModels;
 using ScoringSystem_web_api.Services;
+using ScoringSystem_web_api.Services.Abstraction;
+using ScoringSystem_web_api.Models.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ScoringSystem_web_api.Dto;
-using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Models;
 using ScoringSystem_web_api.Models.CustomerModels;
 using ScoringSystem_web_api.Models.ConditionModels;
 using ScoringSystem_web_api.Models.AuditModels;
 using Microsoft.EntityFrameworkCore.Migrations;
+using ScoringSystem_web_api.Services.Abstraction;
+using ScoringSystem_web_api.Models.Abstraction;
 
 namespace ScoringSystem_web_api.Controllers
 {
