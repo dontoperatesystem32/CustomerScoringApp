@@ -31,6 +31,36 @@ namespace ScoringSystem_web_api.Models.ConditionModels
             return true;
         }
 
+        public override decimal OptionalAmount(Customer customer)
+        {
+            //calculate total Loans
+            float totalLoans = 0;
+            if (customer.Accounts != null)
+            {
+                foreach (var account in customer.Accounts)
+                {
+                    foreach (var loan in account.Loans)
+                        totalLoans += loan;
+                }
+            }
+
+            //if no total loans then cant calculate optional amount
+            if (totalLoans == 0)
+            {
+                return -1;
+            }
+
+            if (totalLoans < (customer.Salary * 10))
+            {
+                return (decimal)((1 / totalLoans) * (customer.Salary) * 100);
+
+                //return (decimal)customer.Salary * 5;
+            }
+
+            return (decimal)((1 / totalLoans) * (customer.Salary) * 10);
+
+        }
+
         public float DeserializeFloat(JsonElement property)
         {
             return property.GetSingle();

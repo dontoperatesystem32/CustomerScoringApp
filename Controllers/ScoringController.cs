@@ -99,10 +99,41 @@ namespace ScoringSystem_web_api.Controllers
 
 
             decimal? optionalAmount = null;
-            if (scoringPassed)
+            //if (scoringPassed)
+            //{
+            //    optionalAmount = _optionalAmountCalcService.CalcMaximumLoan(customer);
+            //}
+
+            //List<decimal> proposedAmounts = new List<decimal>();
+            Dictionary<string, decimal> proposedAmounts = new Dictionary<string, decimal>();
+            decimal tempOptionalAmount;
+            foreach (BaseCondition condition in conditions)
             {
-                optionalAmount = _optionalAmountCalcService.CalcMaximumLoan(customer);
+                tempOptionalAmount = condition.OptionalAmount(customer);
+
+                    proposedAmounts.Add(condition.ConditionType, tempOptionalAmount);
             }
+           
+            List<decimal> proposedAmountsList = new List<decimal>();
+
+            foreach (var proposition in proposedAmounts)
+            {
+                if (!(proposition.Value == -1))
+                {
+                    proposedAmountsList.Add(proposition.Value);
+                }
+            }
+
+            if (proposedAmountsList.Count > 0)
+            {
+                optionalAmount = proposedAmountsList.Min();
+            }
+            else
+            {
+                optionalAmount = -1;
+            }
+
+
 
             //add scoring results to the history
             var scoringHistoryRecord = new ScoringDetails()
@@ -128,6 +159,8 @@ namespace ScoringSystem_web_api.Controllers
                     ScoringRequest = scoringHistoryRecord,
                     EvaluatedCondition = condition,
                     EvaluationResult = scoringResults[condition.ConditionType],
+                    OptionalAmount = proposedAmounts[condition.ConditionType],
+                    //OptionalAmount = 0,
                     CreatedAt = DateTime.Now
                 };
                 if (!_historyConditionRecordRepository.CreateHistoryConditionRecord(historyConditionRecord))
@@ -135,7 +168,7 @@ namespace ScoringSystem_web_api.Controllers
                     return BadRequest(ModelState);
                 }
             }
-
+                
 
             //send response
             var response = new

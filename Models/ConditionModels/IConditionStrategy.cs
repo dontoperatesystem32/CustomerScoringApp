@@ -10,5 +10,6 @@ namespace ScoringSystem_web_api.Models.ConditionModels
         public bool IsEnabled { get; set; }
         public Dictionary<string, object> Properties { get; set; }
         public abstract bool EvaluateCustomer(Customer customer);
+        public abstract decimal OptionalAmount(Customer customer);
     }
 }

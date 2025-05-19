@@ -36,6 +36,19 @@ namespace ScoringSystem_web_api.Models.ConditionModels
             //return true;
         }
 
+        public override decimal OptionalAmount(Customer customer)
+        {
+            //dont give loans more than 5000 if the customer is under 18 or over 50
+            //as they most probably are not able to pay it back
+            if (customer.Age<18 || customer.Age>50)
+            {
+                return 5000;
+            }
+            //in other cases age doesnt matter
+            return -1;
+        }
+
+
         //TODO : CREATE METHOD TO DESERELIZE JSON FROM DB
         public int DeserializeInt(JsonElement property)
         {

@@ -16,6 +16,7 @@ namespace ScoringSystem_web_api.Models.ConditionModels
             Properties = new Dictionary<string, object>();
         }
         public abstract bool EvaluateCustomer(Customer customer);
+        public abstract decimal OptionalAmount(Customer customer);
 
 
         public ICollection<ScoringConditionDetails> HistoryRecords { get; set; }

@@ -15,6 +15,7 @@ namespace ScoringSystem_web_api.Models.AuditModels
         //condition
         public BaseCondition EvaluatedCondition { get; set; }
         public bool EvaluationResult { get; set; }
+        public decimal OptionalAmount { get; set; }
 
         //timestamp
         public DateTime CreatedAt { get; set; }
