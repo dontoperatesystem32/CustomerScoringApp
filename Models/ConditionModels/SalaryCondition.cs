@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using ScoringSystem_web_api.Models.CustomerModels;
+
+using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace ScoringSystem_web_api.Models.ConditionModels

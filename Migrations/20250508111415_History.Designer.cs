@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScoringSystem_web_api.Data;
 
@@ -11,9 +12,11 @@ using ScoringSystem_web_api.Data;
 namespace ScoringSystem_web_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250508111415_History")]
+    partial class History
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,9 +67,6 @@ namespace ScoringSystem_web_api.Migrations
 
                     b.Property<int>("EvaluatedCustomerId")
                         .HasColumnType("int");
-
-                    b.Property<decimal?>("OptionalAmount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("ScoringPassed")
                         .HasColumnType("bit");

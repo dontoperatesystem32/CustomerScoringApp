@@ -2,6 +2,7 @@
 using AutoMapper;
 using ScoringSystem_web_api.Dto;
 using ScoringSystem_web_api.Models;
+using ScoringSystem_web_api.Models.CustomerModels;
 using ScoringSystem_web_api.Models.ConditionModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

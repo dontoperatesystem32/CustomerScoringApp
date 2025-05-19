@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScoringSystem_web_api.Models;
+using ScoringSystem_web_api.Models.AuditModels;
 using ScoringSystem_web_api.Models.ConditionModels;
+using ScoringSystem_web_api.Models.CustomerModels;
 
 using System.Text.Json;
 using System.Xml;
@@ -20,6 +22,8 @@ namespace ScoringSystem_web_api.Data
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<BaseCondition> ConditionStrategies { get; set; }
+        public DbSet<ScoringDetails> ScoringHistory { get; set; }
+        public DbSet<ScoringConditionDetails> ScoringConditionHistory { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //    => optionsBuilder.LogTo(Console.WriteLine);

@@ -4,6 +4,7 @@ using ScoringSystem_web_api;
 using ScoringSystem_web_api.Interfaces;
 using ScoringSystem_web_api.Repository;
 using ScoringSystem_web_api.Models.ConditionModels;
+using ScoringSystem_web_api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 //builder.Services.AddTransient<Seed>();
 builder.Services.AddScoped<IConditionRepository, ConditionRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IHistoryRecordRepository, HistoryRecordRepository>();
+builder.Services.AddScoped<IHistoryConditionRecordRepository, HistoryConditionRecordRepository>();
+
+builder.Services.AddScoped<IOptionalAmountCalcService, OptionalAmountCalcService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

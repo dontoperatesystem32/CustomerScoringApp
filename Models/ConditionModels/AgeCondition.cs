@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using ScoringSystem_web_api.Models.CustomerModels;
+using System.Text.Json;
 
 namespace ScoringSystem_web_api.Models.ConditionModels
 {

@@ -1,4 +1,5 @@
-﻿namespace ScoringSystem_web_api.Models
+﻿namespace ScoringSystem_web_api.Models.CustomerModels
+
 {
     public class Account
     {

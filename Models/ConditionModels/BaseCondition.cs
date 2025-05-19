@@ -1,4 +1,7 @@
-﻿namespace ScoringSystem_web_api.Models.ConditionModels
+﻿using ScoringSystem_web_api.Models.AuditModels;
+using ScoringSystem_web_api.Models.CustomerModels;
+
+namespace ScoringSystem_web_api.Models.ConditionModels
 {
     public abstract class BaseCondition : IConditionStrategy
     {
@@ -13,5 +16,8 @@
             Properties = new Dictionary<string, object>();
         }
         public abstract bool EvaluateCustomer(Customer customer);
+
+
+        public ICollection<ScoringConditionDetails> HistoryRecords { get; set; }
     }
 }

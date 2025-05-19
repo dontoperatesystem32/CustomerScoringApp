@@ -2,6 +2,7 @@
 using ScoringSystem_web_api.Data;
 using ScoringSystem_web_api.Dto;
 using ScoringSystem_web_api.Interfaces;
+using ScoringSystem_web_api.Models.CustomerModels;
 using ScoringSystem_web_api.Models.ConditionModels;
 
 namespace ScoringSystem_web_api.Repository
@@ -45,17 +46,8 @@ namespace ScoringSystem_web_api.Repository
             {
                 return false;
             }
-            Console.WriteLine("\n");
-            Console.WriteLine("conditionType before adding zirzibil: " + conditionType);
 
             conditionType = "ScoringSystem_web_api.Models.ConditionModels." + conditionType;
-
-
-            Console.WriteLine("\n");
-            Console.WriteLine("debug: Type.GetType(conditionType) = " + Type.GetType(conditionType));
-            Console.WriteLine("debug: conditionType = " + conditionType);
-            Console.WriteLine("\n");
-
 
             var condition = Activator.CreateInstance(Type.GetType(conditionType)) as BaseCondition;
 
