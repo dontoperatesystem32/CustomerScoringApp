@@ -6,6 +6,8 @@ namespace ScoringSystem_web_api.Interfaces
     public interface IConditionRepository
     {
         ICollection<BaseCondition> GetConditions();
+        ICollection<BaseCondition> GetActiveConditions();
+
         //BaseCondition GetCondition(int id);
         bool ConditionExists(int conditionId);
         bool ConditionExists(string conditionType);

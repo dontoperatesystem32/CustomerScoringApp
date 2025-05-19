@@ -35,6 +35,7 @@ namespace ScoringSystem_web_api.Controllers
             return Ok(conditions);
         }
 
+
         [HttpPut("{conditionId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]

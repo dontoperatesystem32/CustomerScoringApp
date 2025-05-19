@@ -51,7 +51,7 @@ namespace ScoringSystem_web_api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var conditions = _conditionRepository.GetConditions();
+            var conditions = _conditionRepository.GetActiveConditions();
 
             if (!ModelState.IsValid)
             {

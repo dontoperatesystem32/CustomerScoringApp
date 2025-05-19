@@ -21,6 +21,11 @@ namespace ScoringSystem_web_api.Repository
             return _context.ConditionStrategies.OrderBy(p => p.Id).ToList();
         }
 
+        public ICollection<BaseCondition> GetActiveConditions()
+        {
+            return _context.ConditionStrategies.Where(p => p.IsEnabled).OrderBy(p => p.Id).ToList();
+        }
+
         public bool ConditionExists(int conditionId)
         {
             return _context.ConditionStrategies.Any(с => с.Id == conditionId);
