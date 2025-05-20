@@ -6,12 +6,17 @@ using ScoringSystem_web_api.Models.ConditionModels;
 using ScoringSystem_web_api.Services;
 using ScoringSystem_web_api.Services.Abstraction;
 using ScoringSystem_web_api.Models.Abstraction;
+using ScoringSystem_web_api.Services.ScoringService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IScoringService, ScoringService>();
+
+//repos
 //builder.Services.AddTransient<Seed>();
 builder.Services.AddScoped<IConditionRepository, ConditionRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();

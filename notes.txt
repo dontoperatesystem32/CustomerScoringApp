@@ -1,0 +1,1 @@
+could use ProblemDetails, which is standardized in RFC 7807, but stick to regular approach because was not required
