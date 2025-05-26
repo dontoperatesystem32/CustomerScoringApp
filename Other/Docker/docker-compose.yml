@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: "3.8"
+services:
+  api:
+    build: .
+    ports: [ "5000:80" ]
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment: [ "ACCEPT_EULA=Y", "SA_PASSWORD=Rufat0000" ]
+    ports: [ "1433:1433" ]
+
+  mssql-exporter:
+    image: awaragi/prometheus-mssql-exporter
+    environment:
+      - MSSQL_SERVER=sqlserver
+      - MSSQL_USERNAME=sa
+      - MSSQL_PASSWORD=Rufat0000
+    depends_on: [ sqlserver ]
+    ports: [ "4000:4000" ]
+
+  prometheus:
+    image: prom/prometheus
+    volumes: [ "./prometheus.yml:/etc/prometheus/prometheus.yml" ]
+    ports: [ "9090:9090" ]

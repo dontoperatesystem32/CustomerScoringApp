@@ -8,6 +8,10 @@ using ScoringSystem_web_api.Services.Abstraction;
 using ScoringSystem_web_api.Models.Abstraction;
 using ScoringSystem_web_api.Services.ScoringService;
 
+
+
+//using Prometheus;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -32,10 +36,22 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection"),
+            sqlServerOptionsAction: sqlOptions =>
+            {
+                sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 10,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+            });
 });
 
 var app = builder.Build();
+
+
+
 
 
 var lifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
@@ -79,10 +95,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+//app.UseHttpMetrics();   // one-line request metrics
+//app.MapMetrics();       // /metrics
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+////migrate
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<DataContext>();
+    db.Database.Migrate();      // Applies any pending migrations
+}
+
+
 
 app.Run();

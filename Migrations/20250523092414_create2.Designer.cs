@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ScoringSystem_web_api.Data;
 
@@ -11,9 +12,11 @@ using ScoringSystem_web_api.Data;
 namespace ScoringSystem_web_api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20250523092414_create2")]
+    partial class create2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,8 +43,7 @@ namespace ScoringSystem_web_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("OptionalAmount")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ScoringRequestId")
                         .HasColumnType("int");
@@ -70,8 +72,7 @@ namespace ScoringSystem_web_api.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal?>("OptionalAmount")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("ScoringPassed")
                         .HasColumnType("bit");

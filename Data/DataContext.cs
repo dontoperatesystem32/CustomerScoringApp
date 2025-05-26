@@ -48,6 +48,14 @@ namespace ScoringSystem_web_api.Data
                 .HasValue<AgeCondition>("AgeCondition")
                 .HasValue<SalaryCondition>("SalaryCondition")
                 .HasValue<TotalLoansCondition>("TotalLoansCondition");
+
+            modelBuilder.Entity<ScoringDetails>()
+                .Property(s => s.OptionalAmount)
+                .HasPrecision(18, 4);
+
+            modelBuilder.Entity<ScoringConditionDetails>()
+                .Property(s => s.OptionalAmount)
+                .HasPrecision(18, 4);
         }
 
 
