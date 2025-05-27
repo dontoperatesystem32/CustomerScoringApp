@@ -72,7 +72,7 @@ lifetime.ApplicationStarted.Register(() =>
 });
 
 
-//seed xuynalari
+//seed
 
 //if (args.Length == 1 && args[0].ToLower() == "seeddata")
 //    SeedData(app);
