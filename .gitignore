@@ -6,6 +6,8 @@
 .env
 ## grafana db
 grafana.db
+##my own notes
+notes.txt
 
 # User-specific files
 *.rsuser
