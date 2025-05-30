@@ -12,8 +12,6 @@ services:
     depends_on:
       - db
 
-    
-
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
@@ -21,5 +19,39 @@ services:
     environment:
       SA_PASSWORD: "YourStrong!Passw0rd"
       ACCEPT_EULA: "Y"
-    # volumes:
-    #   - db_data:/var/opt/mssql
+    volumes:
+      - ./DBData:/var/opt/mssql
+  
+  prometheus:
+    image: prom/prometheus:v2.52.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./Prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - webapi
+        
+  mssql-exporter:
+    image: awaragi/prometheus-mssql-exporter:v1.2.1   # light, no config file needed
+    environment:
+      - SERVER=db                   # the service-name of SQL Server inside the Compose network
+      - PORT=1433
+      - USERNAME=sa
+      - PASSWORD=YourStrong!Passw0rd
+      - ENCRYPT=false               # skip TLS inside the local network
+      - DEBUG=app,metrics
+    expose: # exporter only needs to be seen by Prometheus
+      - "4000"                      # the container exposes /metrics on :4000
+    depends_on:
+      - db
+    
+  grafana: 
+    image: grafana/grafana-oss:11.1.0
+    ports: [ "3000:3000" ]        
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=YourStrong!Passw0rd
+    volumes: # persistent data + provisioning files
+      - ./GrafanaData:/var/lib/grafana
+      - ./Grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on: [ prometheus ]
+    

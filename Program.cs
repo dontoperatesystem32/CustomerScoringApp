@@ -8,9 +8,7 @@ using ScoringSystem_web_api.Services.Abstraction;
 using ScoringSystem_web_api.Models.Abstraction;
 using ScoringSystem_web_api.Services.ScoringService;
 
-
-
-//using Prometheus;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +40,7 @@ builder.Services.AddDbContext<DataContext>(options =>
             sqlServerOptionsAction: sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 10,
+                maxRetryCount: 20,
                 maxRetryDelay: TimeSpan.FromSeconds(30),
                 errorNumbersToAdd: null);
             });
@@ -97,8 +95,8 @@ if (app.Environment.IsDevelopment())
 
 
 
-//app.UseHttpMetrics();   // one-line request metrics
-//app.MapMetrics();       // /metrics
+app.UseHttpMetrics();   // one-line request metrics
+app.MapMetrics();       // /metrics
 
 
 app.UseHttpsRedirection();

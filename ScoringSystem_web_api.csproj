@@ -20,11 +20,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="9.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="GrafanaData\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="DBData\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'aspnet-webapi'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['webapi:8080']   # service name & port inside Compose network
+  - job_name: 'mssql'
+    metrics_path: /metrics           # exporter’s endpoint
+    static_configs:
+      - targets: [ 'mssql-exporter:4000' ]

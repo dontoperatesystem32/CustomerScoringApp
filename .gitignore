@@ -4,6 +4,8 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 .env
+## grafana db
+grafana.db
 
 # User-specific files
 *.rsuser
