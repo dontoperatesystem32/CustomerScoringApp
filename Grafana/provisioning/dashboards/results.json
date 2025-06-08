@@ -1,0 +1,167 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.3.6"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "iteration": 1,
+  "links": [],
+  "panels": [
+    {
+      "type": "graph",
+      "title": "Requests Per Second",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(http_requests_received_total[1m])",
+          "legendFormat": "RPS",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 0},
+      "id": 1
+    },
+    {
+      "type": "graph",
+      "title": "Request Duration (avg)",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(http_request_duration_seconds_sum[1m]) / rate(http_request_duration_seconds_count[1m])",
+          "legendFormat": "Avg Duration",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 12, "x": 12, "y": 0},
+      "id": 2
+    },
+    {
+      "type": "graph",
+      "title": "Error Rate",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(http_requests_received_total{status_code=~\"5..\"}[1m]) / rate(http_requests_received_total[1m])",
+          "legendFormat": "Error Rate",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 12, "x": 0, "y": 6},
+      "id": 3
+    },
+    {
+      "type": "graph",
+      "title": "Condition Evaluation Time (per condition)",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(condition_evaluation_duration_seconds_sum[1m]) / rate(condition_evaluation_duration_seconds_count[1m])",
+          "legendFormat": "{{condition}}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 12, "x": 12, "y": 6},
+      "id": 4
+    },
+    {
+      "type": "graph",
+      "title": "Throughput",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(http_request_size_bytes_sum[1m])",
+          "legendFormat": "Incoming",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(http_response_size_bytes_sum[1m])",
+          "legendFormat": "Outgoing",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 24, "x": 0, "y": 12},
+      "id": 5
+    },
+    {
+      "type": "graph",
+      "title": "Total Processing Time",
+      "datasource": "DS_PROMETHEUS",
+      "targets": [
+        {
+          "expr": "rate(total_processing_duration_seconds_sum[1m]) / rate(total_processing_duration_seconds_count[1m])",
+          "legendFormat": "Total Processing",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {"h": 6, "w": 24, "x": 0, "y": 18},
+      "id": 6
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 19,
+  "style": "dark",
+  "tags": ["prometheus-net", ".NET", "metrics"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m"],
+    "time_options": ["5m", "15m", "1h", "6h", "12h", "24h"]
+  },
+  "timezone": "",
+  "title": "Prometheus-net Custom Dashboard",
+  "uid": null,
+  "version": 1
+}
