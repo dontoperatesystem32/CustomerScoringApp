@@ -1,0 +1,27 @@
+TO ADD NEW CONDITIONS:
+- you have to have dotnet sdk 8.0 on your system installed.
+- 
+- create class in ./Models/ConditionModels
+- 
+- in Program.cs along with other conditions add
+        conditionRepository.CreateCondition("{condition type that you pasted in the condition class that you created}");
+to 
+lifetime.ApplicationStarted.Register(() =>...)
+
+- in DataContext.cs add
+.HasValue<TotalLoansCondition>("condition type that you pasted in the condition class that you created");
+in
+"modelBuilder.Entity<BaseCondition>()" section
+
+- in terminal go to your root project directory and run
+dotnet-ef migrations add YourConditionName
+
+- in terminal in the same root directory:
+- 
+1. remove your containers:
+docker compose down -v
+
+3. build the containers again:
+docker compose up --build
+
+Update of the database will be made automatically. 
