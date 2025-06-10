@@ -1,8 +1,8 @@
 TO ADD NEW CONDITIONS:
 - you have to have dotnet sdk 8.0 on your system installed.
-- 
+  
 - create class in ./Models/ConditionModels
-- 
+  
 - in Program.cs along with other conditions add
         conditionRepository.CreateCondition("{condition type that you pasted in the condition class that you created}");
 to 
@@ -17,7 +17,7 @@ in
 dotnet-ef migrations add YourConditionName
 
 - in terminal in the same root directory:
-- 
+  
 1. remove your containers:
 docker compose down -v
 
