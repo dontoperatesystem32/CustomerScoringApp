@@ -8,9 +8,36 @@ using ScoringSystem_web_api.Services.Abstraction;
 using ScoringSystem_web_api.Models.Abstraction;
 using ScoringSystem_web_api.Services.ScoringService;
 
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
+
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+//rate limiting
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: key => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10, // Allow 10 requests
+                Window = TimeSpan.FromMinutes(1),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 5
+            });
+    });
+
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+});
+
+
+
 
 // Add services to the container.
 
@@ -101,6 +128,9 @@ app.MapMetrics();       // /metrics
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Use rate limiting
+app.UseRateLimiter();
 
 app.MapControllers();
 
